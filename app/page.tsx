@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import {
   Download,
-  Play,
   Volume2,
   Sliders,
   Film,
@@ -15,7 +14,6 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  FileText,
   Clock,
   Radio,
   ExternalLink,

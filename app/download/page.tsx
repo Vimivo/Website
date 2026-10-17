@@ -9,9 +9,6 @@ import {
   ExternalLink,
   Monitor,
   Smartphone,
-  Copy,
-  AlertTriangle,
-  FileCode,
   BookOpen,
 } from 'lucide-react';
 import { CopyButton } from '@/components/CopyButton';

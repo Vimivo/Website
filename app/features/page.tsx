@@ -11,9 +11,7 @@ import {
   ShieldCheck,
   Radio,
   Terminal,
-  Cpu,
   Layers,
-  CheckCircle2,
   ArrowRight,
   BookOpen,
 } from 'lucide-react';

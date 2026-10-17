@@ -2,17 +2,14 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
-  Heart,
   Code,
-  Github,
   ExternalLink,
   ShieldCheck,
-  Disc,
   Cpu,
   Layers,
-  Sparkles,
   ArrowRight,
 } from 'lucide-react';
+import { GithubIcon } from '@/components/GithubIcon';
 
 export const metadata: Metadata = {
   title: 'About Vimivo & Developer',
@@ -74,7 +71,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
                 >
-                  <Github className="w-4 h-4 text-cyan-400" />
+                  <GithubIcon className="w-4 h-4 text-cyan-400" />
                   <span>GitHub Repository</span>
                 </a>
               </div>

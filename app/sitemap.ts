@@ -3,7 +3,7 @@ import { getAllDocs } from '@/lib/docs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vimivo.tashanto.com';
-  const currentDate = new Date().toISOString();
+  const currentDate = '2026-10-17T00:00:00.000Z';
 
   const staticRoutes = [
     {

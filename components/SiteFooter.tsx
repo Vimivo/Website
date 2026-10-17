@@ -1,10 +1,12 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { Heart, Shield, Music, Video, Code, Terminal, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { GithubIcon } from './GithubIcon';
 
 export function SiteFooter() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2026;
 
   return (
     <footer className="border-t border-slate-800/80 bg-slate-950/80 backdrop-blur-xl relative z-10">

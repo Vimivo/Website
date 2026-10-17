@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { AlignLeft } from 'lucide-react';
 
 interface TOCItem {
@@ -22,10 +22,9 @@ function slugify(text: string): string {
 }
 
 export function TableOfContents({ content }: TableOfContentsProps) {
-  const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
 
-  useEffect(() => {
+  const headings = useMemo(() => {
     const lines = content.split('\n');
     const items: TOCItem[] = [];
 
@@ -39,7 +38,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
       }
     }
 
-    setHeadings(items);
+    return items;
   }, [content]);
 
   useEffect(() => {

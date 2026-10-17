@@ -3,13 +3,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   BookOpen,
-  FileText,
   ArrowRight,
   Sparkles,
   Shield,
   Layers,
   Terminal,
-  Cpu,
   Monitor,
   Music,
 } from 'lucide-react';

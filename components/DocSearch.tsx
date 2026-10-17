@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { Search, X, FileText, ArrowRight, CornerDownLeft } from 'lucide-react';
 import type { DocMetadata } from '@/lib/docs';
@@ -14,6 +14,11 @@ export function DocSearch({ docs }: DocSearchProps) {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setQuery('');
+  }, []);
+
   // Global hotkey: Cmd+K / Ctrl+K or /
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -22,18 +27,16 @@ export function DocSearch({ docs }: DocSearchProps) {
         setIsOpen((prev) => !prev);
       }
       if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        handleClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, handleClose]);
 
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 50);
-    } else {
-      setQuery('');
     }
   }, [isOpen]);
 
@@ -71,7 +74,7 @@ export function DocSearch({ docs }: DocSearchProps) {
           aria-modal="true"
           aria-label="Search Documentation"
           className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150"
-          onClick={() => setIsOpen(false)}
+          onClick={handleClose}
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -110,7 +113,7 @@ export function DocSearch({ docs }: DocSearchProps) {
                   <Link
                     key={doc.slug}
                     href={`/docs/${doc.slug}`}
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleClose}
                     className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-900/80 transition-colors group"
                   >
                     <div className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-cyan-400 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-colors shrink-0">

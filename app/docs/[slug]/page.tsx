@@ -6,7 +6,6 @@ import {
   getAllDocs,
   getDocBySlug,
   getDocCategories,
-  type DocMetadata,
 } from '@/lib/docs';
 import { DocSidebar } from '@/components/DocSidebar';
 import { TableOfContents } from '@/components/TableOfContents';
@@ -14,13 +13,10 @@ import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { DocSearch } from '@/components/DocSearch';
 import {
   ChevronRight,
-  BookOpen,
   ArrowLeft,
   ArrowRight,
-  Github,
-  Clock,
-  FileCode,
 } from 'lucide-react';
+import { GithubIcon } from '@/components/GithubIcon';
 
 interface DocPageProps {
   params: Promise<{ slug: string }>;
@@ -122,7 +118,7 @@ export default async function DocArticlePage({ params }: DocPageProps) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-slate-400 hover:text-cyan-400 transition-colors"
                 >
-                  <Github className="w-3 h-3" />
+                  <GithubIcon className="w-3 h-3" />
                   <span>View on GitHub</span>
                 </a>
               </div>

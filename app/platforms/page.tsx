@@ -5,12 +5,9 @@ import {
   Monitor,
   Smartphone,
   Terminal,
-  Cpu,
   Download,
-  ShieldCheck,
   CheckCircle2,
   AlertCircle,
-  ExternalLink,
   BookOpen,
   ArrowRight,
 } from 'lucide-react';

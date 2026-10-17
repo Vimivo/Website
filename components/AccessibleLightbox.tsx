@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { X, ZoomIn, Download, ExternalLink } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 
 interface AccessibleLightboxProps {
   isOpen: boolean;

@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { Monitor, Smartphone, LayoutGrid, ZoomIn, CheckCircle2 } from 'lucide-react';
+import { Monitor, Smartphone, ZoomIn, CheckCircle2 } from 'lucide-react';
 import { AccessibleLightbox } from './AccessibleLightbox';
 
 interface ScreenshotItem {
