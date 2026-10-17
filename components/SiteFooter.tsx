@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Github, Heart, Shield, Music, Video, Code, Terminal, ExternalLink } from 'lucide-react';
+import { Heart, Shield, Music, Video, Code, Terminal, ExternalLink } from 'lucide-react';
+import { GithubIcon } from './GithubIcon';
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear();
@@ -37,7 +38,7 @@ export function SiteFooter() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white transition-colors"
               >
-                <Github className="w-4 h-4 text-cyan-400" />
+                <GithubIcon className="w-4 h-4 text-cyan-400" />
                 <span>GitHub Repository</span>
               </a>
               <span className="text-xs text-slate-500 font-mono">MIT Licensed</span>

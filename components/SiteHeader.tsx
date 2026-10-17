@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Github, Download, Disc, Monitor, BookOpen, Shield, Info } from 'lucide-react';
+import { Menu, X, Download, Disc, Monitor, BookOpen, Shield, Info } from 'lucide-react';
+import { GithubIcon } from './GithubIcon';
 
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -104,7 +105,7 @@ export function SiteHeader() {
               className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-slate-700 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               title="GitHub Repository (Vimivo/Player)"
             >
-              <Github className="w-5 h-5" />
+              <GithubIcon className="w-5 h-5" />
             </a>
 
             <Link
@@ -172,7 +173,7 @@ export function SiteHeader() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900"
             >
-              <Github className="w-5 h-5 text-indigo-400" />
+              <GithubIcon className="w-5 h-5 text-indigo-400" />
               <span>GitHub Repository</span>
             </a>
           </nav>
