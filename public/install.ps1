@@ -1,4 +1,4 @@
-# ==============================================================================
+﻿# ==============================================================================
 #  Vimivo — Every Sound. Every Frame.
 #  Official Windows PowerShell Quick Installer
 #
@@ -15,7 +15,7 @@ Write-Host "====================================================================
 Write-Host ""
 
 $DownloadUrl = "https://vimivo.tashanto.com/api/download/windows"
-$OutputFile = "$env:USERPROFILE\Downloads\Vimivo-Setup-1.0.0.exe"
+$OutputFile = "$env:USERPROFILE\Downloads\Vimivo-1.0.0.exe"
 
 Write-Host "==> Downloading official Windows 64-bit installer..." -ForegroundColor Green
 Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutputFile -UseBasicParsing

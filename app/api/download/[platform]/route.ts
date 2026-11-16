@@ -9,52 +9,67 @@ interface ReleaseTarget {
 const RELEASE_MAP: Record<string, ReleaseTarget> = {
   macos: {
     filename: 'Vimivo-1.0.0.dmg',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-1.0.0.dmg',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-1.0.0.dmg',
     contentType: 'application/x-apple-diskimage',
   },
   'macos-dmg': {
     filename: 'Vimivo-1.0.0.dmg',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-1.0.0.dmg',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-1.0.0.dmg',
     contentType: 'application/x-apple-diskimage',
   },
   android: {
     filename: 'Vimivo-1.0.0.apk',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/androidApp-release-unsigned.apk',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/androidApp-release-unsigned.apk',
     contentType: 'application/vnd.android.package-archive',
   },
   'android-apk': {
     filename: 'Vimivo-1.0.0.apk',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/androidApp-release-unsigned.apk',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/androidApp-release-unsigned.apk',
     contentType: 'application/vnd.android.package-archive',
   },
   'android-aab': {
     filename: 'Vimivo-1.0.0.aab',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/androidApp-release.aab',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/androidApp-release.aab',
     contentType: 'application/octet-stream',
   },
   windows: {
-    filename: 'Vimivo-Setup-1.0.0.exe',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-Setup-1.0.0.exe',
+    filename: 'Vimivo-1.0.0.exe',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-1.0.0.exe',
     contentType: 'application/x-msdownload',
   },
   'windows-exe': {
-    filename: 'Vimivo-Setup-1.0.0.exe',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-Setup-1.0.0.exe',
+    filename: 'Vimivo-1.0.0.exe',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-1.0.0.exe',
     contentType: 'application/x-msdownload',
   },
+  'windows-msi': {
+    filename: 'Vimivo-1.0.0.msi',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-1.0.0.msi',
+    contentType: 'application/x-msi',
+  },
   linux: {
-    filename: 'vimivo_1.0.0_amd64.deb',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/vimivo_1.0.0_amd64.deb',
+    filename: 'vimivo_1.0.0-1_amd64.deb',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/vimivo_1.0.0-1_amd64.deb',
     contentType: 'application/vnd.debian.binary-package',
   },
   'linux-deb': {
-    filename: 'vimivo_1.0.0_amd64.deb',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/vimivo_1.0.0_amd64.deb',
+    filename: 'vimivo_1.0.0-1_amd64.deb',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/vimivo_1.0.0-1_amd64.deb',
     contentType: 'application/vnd.debian.binary-package',
+  },
+  'linux-rpm': {
+    filename: 'vimivo-1.0.0-1.x86_64.rpm',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/vimivo-1.0.0-1.x86_64.rpm',
+    contentType: 'application/x-rpm',
+  },
+  'linux-appimage': {
+    filename: 'Vimivo-1.0.0-x86_64.AppImage',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-1.0.0-x86_64.AppImage',
+    contentType: 'application/x-executable',
   },
   ios: {
     filename: 'VimivoCoreRust.xcframework.zip',
-    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-iOS-TestFlight.mobileprovision',
+    url: 'https://github.com/Vimivo/Player/releases/download/v1.0.0/Vimivo-iOS-TestFlight.mobileprovision',
     contentType: 'application/octet-stream',
   },
 };

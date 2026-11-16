@@ -72,7 +72,7 @@ case "${OS}" in
     Linux)
         echo -e "${CYAN}==>${NC} ${BOLD}Detected Linux (${ARCH})${NC}"
         DOWNLOAD_URL="https://vimivo.tashanto.com/api/download/linux"
-        TARGET_FILE="vimivo_1.0.0_amd64.deb"
+        TARGET_FILE="vimivo_1.0.0-1_amd64.deb"
 
         echo -e "${CYAN}==>${NC} Downloading official Linux package..."
         if command -v curl >/dev/null 2>&1; then
@@ -97,7 +97,7 @@ case "${OS}" in
     MINGW*|MSYS*|CYGWIN*)
         echo -e "${CYAN}==>${NC} ${BOLD}Detected Windows environment${NC}"
         DOWNLOAD_URL="https://vimivo.tashanto.com/api/download/windows"
-        TARGET_FILE="Vimivo-Setup-1.0.0.exe"
+        TARGET_FILE="Vimivo-1.0.0.exe"
 
         echo -e "${CYAN}==>${NC} Downloading official Windows installer..."
         curl -fSL "${DOWNLOAD_URL}" -o "${TARGET_FILE}" --progress-bar
