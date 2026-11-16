@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Heart } from 'lucide-react';
 import { GithubIcon } from './GithubIcon';
 
 export function SiteFooter() {
@@ -33,7 +33,7 @@ export function SiteFooter() {
               A privacy-first, offline universal audio and video player built with Kotlin Multiplatform
               and Compose Multiplatform for Android, macOS, Windows, Linux, and iOS.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="https://github.com/Vimivo/Player"
                 target="_blank"
@@ -42,6 +42,15 @@ export function SiteFooter() {
               >
                 <GithubIcon className="w-4 h-4 text-cyan-400" />
                 <span>GitHub Repository</span>
+              </a>
+              <a
+                href="https://www.supportkori.com/iamtashanto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-300 bg-rose-950/40 border border-rose-500/30 hover:border-rose-500/50 hover:bg-rose-900/30 transition-all shadow-sm"
+              >
+                <Heart className="w-3.5 h-3.5 fill-rose-400 text-rose-400" />
+                <span>Support Kori</span>
               </a>
               <span className="text-xs text-slate-500 font-mono">MIT Licensed</span>
             </div>
