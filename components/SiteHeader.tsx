@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Download, Disc, Monitor, BookOpen, Shield, Info } from 'lucide-react';
+import { Menu, X, Download, Disc, Monitor, BookOpen, Shield, Info, Heart } from 'lucide-react';
 import { GithubIcon } from './GithubIcon';
 
 export function SiteHeader() {
@@ -113,6 +113,18 @@ export function SiteHeader() {
           {/* Action CTAs */}
           <div className="hidden sm:flex items-center gap-3">
             <a
+              href="https://www.supportkori.com/iamtashanto"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Support TA Shanto on Support Kori"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 hover:border-rose-500/50 transition-all shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400"
+              title="Support TA Shanto on Support Kori"
+            >
+              <Heart className="w-3.5 h-3.5 fill-rose-400 text-rose-400" />
+              <span>Support</span>
+            </a>
+
+            <a
               href="https://github.com/Vimivo/Player"
               target="_blank"
               rel="noopener noreferrer"
@@ -194,6 +206,16 @@ export function SiteHeader() {
           </nav>
 
           <div className="pt-6 border-t border-slate-800/80 flex flex-col gap-3">
+            <a
+              href="https://www.supportkori.com/iamtashanto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-md"
+            >
+              <Heart className="w-4 h-4 fill-rose-400 text-rose-400" />
+              <span>Support TA Shanto (Support Kori)</span>
+            </a>
+
             <Link
               href="/download"
               className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/20"

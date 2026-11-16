@@ -21,6 +21,7 @@ import {
   Wifi,
   FileAudio,
   HardDrive,
+  Heart,
 } from 'lucide-react';
 import { ScreenshotShowcase } from '@/components/ScreenshotShowcase';
 import { InteractivePlayerDemo } from '@/components/InteractivePlayerDemo';
@@ -485,6 +486,16 @@ export default function HomePage() {
               <Download className="w-4 h-4" />
               <span>Download Vimivo v1.0.0-rc.1</span>
             </Link>
+
+            <a
+              href="https://www.supportkori.com/iamtashanto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-semibold bg-rose-950/40 hover:bg-rose-900/40 text-rose-200 border border-rose-500/30 hover:border-rose-500/50 transition-all shadow-sm"
+            >
+              <Heart className="w-4 h-4 fill-rose-400 text-rose-400" />
+              <span>Support on Support Kori</span>
+            </a>
 
             <a
               href="https://github.com/Vimivo/Player"

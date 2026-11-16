@@ -10,6 +10,7 @@
 Write-Host "======================================================================" -ForegroundColor Cyan
 Write-Host "  Vimivo — Every Sound. Every Frame." -ForegroundColor White
 Write-Host "  Designed & Developed by TA Shanto (https://tashanto.com)" -ForegroundColor Cyan
+Write-Host "  Support on Support Kori: https://www.supportkori.com/iamtashanto" -ForegroundColor Magenta
 Write-Host "======================================================================" -ForegroundColor Cyan
 Write-Host ""
 

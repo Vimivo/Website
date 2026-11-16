@@ -8,6 +8,7 @@ import {
   Cpu,
   Layers,
   ArrowRight,
+  Heart,
 } from 'lucide-react';
 import { GithubIcon } from '@/components/GithubIcon';
 
@@ -63,6 +64,16 @@ export default function AboutPage() {
                 >
                   <span>Visit tashanto.com</span>
                   <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+
+                <a
+                  href="https://www.supportkori.com/iamtashanto"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 hover:border-rose-500/50 transition-all"
+                >
+                  <Heart className="w-3.5 h-3.5 fill-rose-400 text-rose-400" />
+                  <span>Support on Support Kori</span>
                 </a>
 
                 <a
