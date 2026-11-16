@@ -47,3 +47,99 @@ This register documents current technical limitations, edge cases, and distribut
 - **Apple AVFoundation Containers**: Native iOS AVPlayer does not decode `.mkv` or `.avi` files natively without remuxing.
 - **DRM Content**: Protected media formats (Widevine, FairPlay) are intentionally not supported. Vimivo plays local and user-authorized non-DRM media.
 - **DVD Menus**: ISO/VOB DVD interactive menus are not supported; raw VOB video streams play sequentially.
+
+## Added 2026-11-12
+
+- **iOS: no Wi-Fi file receive.** The previous sheet was non-functional and was removed. Use the Files app, AirDrop or
+  "Open in Vimivo". Android and desktop have a real, token-protected receive server.
+- **Desktop: no casting, no transcode.** Both were non-functional and were removed from the menu and command palette.
+  Casting needs real SSDP/DLNA discovery and a local media server; transcode needs an LGPL transcoder in the media
+  package (ADR-004).
+- **No online subtitle search.** Removed by decision. Local files, auto-load and embedded tracks work.
+- **Android private vault:** no biometric unlock, and it stays unlocked while the app is in the background until the
+  library screen is recreated. The PIN is four digits with a 5-attempt / 30 s limiter, which stops casual guessing but
+  is not strong protection against someone who can read the device's app data.
+- **iOS private vault:** PIN only (no Face ID); Settings "Change PIN" re-asks the current PIN but cannot yet set a new one.
+- **Android Auto / CarPlay:** Android exposes a browse tree but is not registered for Android Auto; CarPlay needs an
+  Apple entitlement the project does not have.
+- **Android Chromecast:** not implemented (no Cast SDK); iOS AirPlay uses the system route picker.
+- **Desktop capture (webcam / screen):** URL forms fixed and unit-tested only; not run against real devices. Windows needs the
+  DirectShow device name typed in. Wayland screen capture is not supported.
+- **Local development builds** link Homebrew's GPL libmpv. Distributable builds must set `VIMIVO_MPV_PREFIX`; packaging
+  tasks now fail without it.
+
+## Added 2026-11-12 (second round)
+
+- **Casting is DLNA / UPnP only** (desktop and Android). Chromecast needs Google's SDK and AirPlay is a closed protocol;
+  neither is built. Casting has only been tested against a simulated renderer on loopback, not a real TV. Android stops the
+  cast when you leave the video player.
+- **Video rotation** turns the picture in 90° steps without turning the phone (all platforms). On Android it rotates the
+  video view, so a libmpv/SurfaceView pipeline that ignores view rotation would need an engine-side rotation. Check on a device.
+- **Listen as audio** switches the video track off while the sound keeps playing (Android, iOS; desktop has audio-only).
+  After it, opening the video again restores the picture.
+- **Sleep timer** has custom hours/minutes on all platforms and is reachable from the video player on Android and iOS.
+- **Desktop video quality** (scaler, deband, smooth motion, HDR tone mapping, exclusive audio) is applied for the current
+  session only; the choices are not saved yet.
+- **Biometric vault unlock**: Android 10+ (platform prompt) and iOS (Face ID / Touch ID). Not tried on a device.
+- **Localization is much narrower than documented.** Android has 96 strings in English and Bangla, but about 400 UI
+  strings are written directly in the code in English. iOS has no localization files at all. "EN + বাংলা" is true only for
+  the Android strings that use resources.
+- **Still missing:** SMB / SFTP / WebDAV sources (the LGPL libmpv has no `smb://` or `sftp://`; a client library and local
+  proxy are needed), iOS MKV/AVI (needs libmpv for iOS), poster and metadata library, Android TV / tvOS, Dolby Vision profile
+  handling, crossfade, Android colour Plan B.
+
+## Added 2026-11-12 (third round: network shares, convert, desktop)
+
+- **Network shares (SMB, SFTP, WebDAV)** are read by pure-Java clients (smbj, sshj) and handed to the player through a
+  private `127.0.0.1` link, so the LGPL libmpv needs no `smb://` or `sftp://` support. Desktop has all three with a
+  folder browser. Android has SMB and WebDAV(https); Android SFTP is off until a first-use server-key confirmation
+  screen exists. **iOS has none of them.** Nothing was run against a real server. Digest authentication for WebDAV is not
+  supported (Basic only). On Android, smbj and sshj bring BouncyCastle, which may clash with the platform copy at runtime:
+  check on a device before relying on it.
+- **Convert Media (desktop)** uses libmpv's encoder path: AAC, FLAC, WAV, MP3 audio and MKV/MP4 stream-copy. The LGPL
+  media package has no x264/x265, so there is no video re-encode, and MP3 only works if the bundled FFmpeg includes the
+  LAME encoder (the dialog shows libmpv's own error if not). Not run.
+- **Desktop preferences** (toolbar buttons, video quality) are saved in `preferences.properties` in the app data folder.
+  The hotkey preset is still not saved.
+- **Desktop memory:** the packaged app now starts with the serial collector, a shrinking heap (768 MB cap), and capped
+  metaspace and code cache. Not measured; check real memory use on each OS.
+- **iOS MKV/AVI is not done.** It needs LGPL libmpv/FFmpeg frameworks built for iOS from `scripts/build_media`
+  (ADR-004, open item) and a second playback surface in the SwiftUI player. That cannot be produced without building and
+  trying it on a device, so it was not attempted blind.
+
+## Added 2026-11-12 (fourth round: desktop layout and usability)
+
+- **Fixed in code, not looked at on screen:** queue rows (title ellipsis, icon buttons, drag to reorder), Network page header,
+  page header in a narrow window, the duplicate Search box, a minimum window size of 800x520, and the window's size and
+  position being remembered. These come from the 27 Oct screenshots; nobody has re-run the app to confirm they now look right.
+- **Open Folder** plays a whole folder (natural order, not including subfolders). **Skip Intro** now uses chapters (intro, opening,
+  recap, or a short first chapter) and otherwise jumps 85 s. **Hotkey preset** and **language** are saved.
+- **Language:** Settings offers System / English / বাংলা. Only the strings that live in resource files are translated (HUD
+  messages, queue, file-opening dialogs, player labels). About 360 menu and panel labels are still English literals, so
+  Bangla is a mixed screen until those move into resources. A language change needs a restart.
+- **Player icons** show a name on hover. **Settings** gained a Video quality and Keyboard card (it already had themes,
+  playback profile, equalizer, ReplayGain, sleep timer, accessibility switches, diagnostics).
+- **Correction to the audit:** XSPF and PLS import already existed (the file pickers just did not list `.pls`; fixed), and
+  Settings is much fuller than first reported.
+- **Error messages:** library, network share, convert and cast failures now say what happened and what to try
+  (`FriendlyError`). Other screens still show the raw message.
+- **Android build:** it was broken from the network-share work until `assembleDebug` was run (duplicate BouncyCastle classes
+  and licence files); fixed by pinning BouncyCastle 1.87. Whether smbj/sshj actually work on a device is still unknown.
+
+## Added 2026-11-12 (fifth round: folders, posters, SFTP, iOS Bengali)
+
+- **Open Folder** now includes subfolders (natural order, hidden items skipped, capped at 5,000 files with a message).
+- **Library titles and posters (offline).** Video file names like `The.Film.2019.1080p.BluRay.x264-GRP.mkv` are shown as
+  `The Film (2019)` or `Show · S01E02` (`TitleParser`). A `poster.jpg`, `folder.jpg`, `cover.jpg` or `<name>.jpg` beside a
+  video is used as its picture instead of a frame grab. Existing library entries keep their old titles until rescanned. There is
+  no online metadata lookup, by design.
+- **Android SFTP** works after the person confirms the server's key fingerprint (shown in a dialog) on first connection.
+  Not tried against a real server.
+- **iOS Bengali:** `bn.lproj/Localizable.strings` translates the ~190 SwiftUI texts, and the language choice in Settings now
+  actually applies (it was saved but never used). Translations were written without a native review and have not been looked
+  at on a device. Texts built from variables, and strings that live in the shared Kotlin code, are not covered.
+- **Not built, and why:** Chromecast (needs Google Play Services, which conflicts with the no-tracker rule), AirPlay sending
+  (closed protocol), x264/x265 and DVD menus (GPL), CarPlay (needs Apple's approval), iOS MKV/AVI (needs an iOS libmpv build
+  and a second playback surface), crossfade (mpv cannot overlap two files), self-installing updates (needs a signing and
+  update-feed setup), other languages (no reviewer for the translations).
+

@@ -147,6 +147,21 @@
   animation: ambientGlow 8s ease-in-out infinite;
 }
 
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2.5s ease-in-out infinite;
+}
+
 /* Reduced motion preference respect */
 @media (prefers-reduced-motion: reduce) {
   *,

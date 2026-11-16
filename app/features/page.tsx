@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   Music,
-  Film,
   Sliders,
   Volume2,
   FolderSync,
@@ -14,12 +13,21 @@ import {
   Layers,
   ArrowRight,
   BookOpen,
+  Zap,
+  Repeat,
+  Activity,
+  RotateCw,
+  Lock,
+  Wifi,
+  FileAudio,
+  HardDrive,
+  Maximize2,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Features & Architecture',
   description:
-    'Comprehensive catalog of verified Vimivo features: 10-band graphic EQ, ReplayGain, gapless playback, hardware video rendering, AST smart playlists, and dual-mode metadata.',
+    'Comprehensive catalog of verified Vimivo features: Pure Rust core, HW/HW+/SW decoder switcher, 200% volume boost with soft-knee limiter, A-B loop, dual subtitles, private vault, and offline Wi-Fi transfer.',
 };
 
 interface FeatureDetail {
@@ -36,6 +44,24 @@ interface FeatureDetail {
 }
 
 const FEATURE_CATALOG: FeatureDetail[] = [
+  // 1. Architecture & Performance
+  {
+    id: 'rust-core-engine',
+    category: 'Architecture & Performance',
+    icon: Zap,
+    title: 'Pure Rust Multimedia Engine & UniFFI Typed Bindings',
+    summary:
+      'Zero-overhead, memory-safe Rust core library (`vimivo-core`) executing signal processing, subtitle parsing, cryptographic storage, and playback logic.',
+    benefit:
+      'Eliminates memory safety bugs, GC stutter, and latency across mobile and desktop platforms while ensuring 100% identical business logic on every OS.',
+    howItWorks:
+      'Compiled into native shared libraries with type-safe UniFFI generated bindings for Kotlin (Android/Desktop) and Swift (iOS/macOS) with zero serialization overhead.',
+    accessPoint: 'Engine core — runs automatically beneath all player interfaces.',
+    platforms: 'Android, macOS, Windows, Linux, iOS.',
+    docLink: '/docs/overview',
+  },
+
+  // 2. Audio Playback
   {
     id: 'graphic-equalizer',
     category: 'Audio Playback',
@@ -46,7 +72,7 @@ const FEATURE_CATALOG: FeatureDetail[] = [
     benefit:
       'Customize sound curves for headphones, studio monitors, or car audio without digital distortion or harsh audio clipping.',
     howItWorks:
-      'The engine applies biquad IIR filtering directly within the audio render pipeline. When boost is applied, the preamp automatically calculates ceiling headroom and attenuates input level to prevent saturation.',
+      'The engine applies biquad IIR filtering directly within the pure Rust audio pipeline. When boost is applied, the preamp automatically calculates headroom and attenuates input to prevent saturation.',
     accessPoint: 'Now Playing screen -> Audio Controls -> Equalizer or via Settings -> Audio.',
     platforms: 'Android, macOS, Windows, Linux.',
     docLink: '/docs/audio-playback',
@@ -81,39 +107,167 @@ const FEATURE_CATALOG: FeatureDetail[] = [
     platforms: 'Android, macOS, Windows, Linux.',
     docLink: '/docs/audio-playback',
   },
+
+  // 3. Video Experience & Decoders
   {
-    id: 'gpu-video-pipeline',
+    id: 'hw-decoder-switcher',
     category: 'Video Experience',
-    icon: Film,
-    title: 'Hardware-Accelerated GPU Video Engine',
+    icon: Zap,
+    title: '1-Tap HW / HW+ / SW Hardware Decoder Switcher',
     summary:
-      'Platform-native video rendering powered by libmpv on desktop and Media3 ExoPlayer on mobile.',
+      'Direct, instant switching between Hardware Acceleration (HW), Enhanced Hardware (HW+), and Software CPU fallback (SW).',
     benefit:
-      'Buttery-smooth 4K, 60fps, and HDR video playback with minimal CPU usage and low battery drain.',
+      'Resolve video stutter, damaged container playback, or audio desync with a single tap directly from the video top bar — identical to the beloved MX Player signature feature.',
     howItWorks:
-      'Uses platform-specific hardware decoders (Metal VideoToolbox on macOS, Direct3D 11 / NVDEC on Windows, VA-API on Linux, MediaCodec on Android).',
-    accessPoint: 'Video Player viewport and context menu.',
-    platforms: 'macOS, Windows, Linux, Android, iOS.',
+      'Switches the libmpv / Media3 video decoder surface dynamically on the fly and remembers your decoder preference for each media file persistently.',
+    accessPoint: 'Player Top Bar -> `⚡ HW+` / `⚡ HW` / `💻 SW` Chip.',
+    platforms: 'Android, macOS, Windows, Linux, iOS.',
     docLink: '/docs/video-playback',
   },
   {
-    id: 'subtitle-sync',
+    id: 'gesture-feedback-hud',
     category: 'Video Experience',
-    icon: Layers,
-    title: 'Real-Time Subtitle Synchronization (±5000ms)',
+    icon: Maximize2,
+    title: 'MX Player Muscle-Memory Touch Gestures & Visual HUD',
     summary:
-      'Interactive timing adjustment for external and embedded subtitles with full SSA/ASS vector styling support.',
+      'Vertical edge swipes for brightness and volume (up to 200%), horizontal seek delta scrubbing, double-tap seek, and 2x speed long press.',
     benefit:
-      'Instantly fix out-of-sync subtitles while watching without needing to edit or re-download subtitle files.',
+      'Control your media seamlessly without touching small on-screen buttons. The volume boost turns amber at >100% with soft-knee limiter protection.',
     howItWorks:
-      'A hardware clock offset dynamically shifts subtitle rendering timestamps relative to audio master clock. Rendered natively by libass on desktop and Media3 subtitle parser on Android.',
-    accessPoint: 'Video Player -> Subtitle Options -> Delay Slider.',
+      'Touch gesture engine computes velocity and deltas in pure Rust, projecting an ultra-crisp OLED glassmorphic HUD pill with tabular numbers (`+00:15`).',
+    accessPoint: 'Video Player Viewport -> Swipe left edge (brightness), right edge (volume), or center (seek).',
+    platforms: 'Android, iOS, Desktop touchscreens.',
+    docLink: '/docs/video-playback',
+  },
+  {
+    id: 'auto-rotation-vlc',
+    category: 'Video Experience',
+    icon: RotateCw,
+    title: 'VLC-Style Dynamic Orientation & Smart Auto-Rotation',
+    summary:
+      'Intelligent orientation switcher that automatically rotates widescreen videos to landscape even when phone system auto-rotate is disabled.',
+    benefit:
+      'Watch widescreen movies in full landscape without having to swipe down the system notification shade to unlock screen rotation.',
+    howItWorks:
+      'Inspects media aspect ratio metadata upon load and requests native sensor orientation directly from the activity window manager, with 1-tap manual override.',
+    accessPoint: 'Player Top Bar -> Orientation Toggle Button.',
+    platforms: 'Android, iOS.',
+    docLink: '/docs/video-playback',
+  },
+  {
+    id: 'ab-loop-repeat',
+    category: 'Video Experience',
+    icon: Repeat,
+    title: 'A-B Loop Repeat Precision Engine',
+    summary:
+      'Mark millisecond-accurate start (A) and end (B) timestamps to continuously loop any audio segment or video scene.',
+    benefit:
+      'Ideal for learning musical instruments, studying film dialogue, dance choreography, or examining high-speed frame motion.',
+    howItWorks:
+      'A dedicated pure Rust state machine tracks loop bounds. When playback reaches Point B, it automatically seeks back to Point A without audio dropout.',
+    accessPoint: 'Player Controls -> A-B Loop Button (Tap once for A, tap twice for B, tap again to clear).',
     platforms: 'All supported platforms.',
     docLink: '/docs/video-playback',
   },
   {
+    id: 'dual-subtitles',
+    category: 'Video Experience',
+    icon: Layers,
+    title: 'Simultaneous Dual Subtitles with Collision Avoidance',
+    summary:
+      'Display two subtitle tracks simultaneously (e.g. English dialogue at the bottom, Bengali or Spanish translation on top).',
+    benefit:
+      'The ultimate tool for language learners and foreign cinema enthusiasts. Includes drag-to-reposition and pinch-to-scale gestures.',
+    howItWorks:
+      'Parses primary and secondary subtitle tracks into independent rendering layers with automatic collision detection and UTF-8 charset correction.',
+    accessPoint: 'Player Subtitle Menu -> Select Primary & Secondary Subtitles.',
+    platforms: 'All supported platforms.',
+    docLink: '/docs/video-playback',
+  },
+
+  // 4. Diagnostics & Performance
+  {
+    id: 'stats-for-nerds',
+    category: 'Diagnostics & Performance',
+    icon: Activity,
+    title: 'Stats for Nerds (Live Media Diagnostics HUD)',
+    summary:
+      'Real-time diagnostic overlay reporting live FPS, dropped frame count, video bitrates, audio layout, and buffer cache health.',
+    benefit:
+      'Verify whether your GPU is properly hardware-accelerating playback and troubleshoot dropped frames or network bandwidth bottlenecks.',
+    howItWorks:
+      'Samples underlying demuxer, decoder, and renderer statistics at 2Hz intervals and formats them with tabular precision.',
+    accessPoint: 'Video Player Settings -> Stats for Nerds.',
+    platforms: 'Android, macOS, Windows, Linux.',
+    docLink: '/docs/video-playback',
+  },
+
+  // 5. Security & Privacy
+  {
+    id: 'private-vault',
+    category: 'Security & Trust',
+    icon: Lock,
+    title: 'Private Media Vault (AES-256-GCM)',
+    summary:
+      'Cryptographically secured offline media vault to hide sensitive personal videos, recordings, and audio files from system media scans.',
+    benefit:
+      'Your private videos are completely invisible to gallery apps and external file scanners, protected by an offline master PIN/passphrase.',
+    howItWorks:
+      'Uses PBKDF2/Argon2 key derivation and AES-256-GCM authenticated encryption. Files are safely encrypted into a private application vault with brute-force lockout.',
+    accessPoint: 'Main Navigation -> Vault -> Setup PIN / Unlock.',
+    platforms: 'Android, macOS, Windows, Linux, iOS.',
+    docLink: '/docs/privacy-policy',
+  },
+  {
+    id: 'offline-privacy',
+    category: 'Security & Trust',
+    icon: ShieldCheck,
+    title: 'Zero-Account Offline Architecture',
+    summary:
+      '100% local SQLite v6 persistence with WAL mode. Zero accounts, zero analytics, zero data uploads.',
+    benefit:
+      'Total privacy and data sovereignty. Your listening habits, personal files, and metadata never leave your physical device.',
+    howItWorks:
+      'All states, playlists, bookmarks, and indexes reside in private local application sandboxes. No network telemetry calls exist in the binary.',
+    accessPoint: 'Default architecture — active across entire application.',
+    platforms: 'All supported platforms.',
+    docLink: '/docs/privacy-policy',
+  },
+
+  // 6. Organization & Transfer
+  {
+    id: 'wifi-transfer',
+    category: 'Organization & Transfer',
+    icon: Wifi,
+    title: 'Offline Wi-Fi Hotspot File Sharing',
+    summary:
+      'High-speed zero-cable file transfer engine that creates a local HTTP server for wireless uploads and downloads.',
+    benefit:
+      'Transfer 4K videos or music libraries to your phone or computer over local Wi-Fi at maximum speed without requiring internet access or USB cables.',
+    howItWorks:
+      'Spawns an embedded asynchronous HTTP web server in pure Rust. Opening the displayed IP address in any browser allows drag-and-drop file transfers.',
+    accessPoint: 'Settings -> Wi-Fi Transfer -> Start Server.',
+    platforms: 'Android, macOS, Windows, Linux.',
+    docLink: '/docs/file-organization',
+  },
+  {
+    id: 'video-to-audio',
+    category: 'Organization & Transfer',
+    icon: FileAudio,
+    title: 'Lossless Video-to-Audio Extractor',
+    summary:
+      'Extract pristine audio tracks (MP3, AAC, FLAC) from downloaded concerts, video clips, or lectures with background batch processing.',
+    benefit:
+      'Turn video podcasts, music videos, and recorded lectures into standalone music tracks for your library with a single tap.',
+    howItWorks:
+      'Uses stream copy where possible for zero-quality-loss extraction, or high-bitrate encoding with metadata preservation.',
+    accessPoint: 'Video Item Menu -> Extract Audio.',
+    platforms: 'Android, macOS, Windows, Linux.',
+    docLink: '/docs/metadata-editing',
+  },
+  {
     id: 'smart-playlists',
-    category: 'Media Library',
+    category: 'Organization & Transfer',
     icon: Sparkles,
     title: 'Rule-Based Smart Playlists (Typed AST)',
     summary:
@@ -128,7 +282,7 @@ const FEATURE_CATALOG: FeatureDetail[] = [
   },
   {
     id: 'dual-mode-metadata',
-    category: 'Organization',
+    category: 'Organization & Transfer',
     icon: FolderSync,
     title: 'Dual-Mode Metadata Management',
     summary:
@@ -143,7 +297,7 @@ const FEATURE_CATALOG: FeatureDetail[] = [
   },
   {
     id: 'batch-renamer',
-    category: 'Organization',
+    category: 'Organization & Transfer',
     icon: Terminal,
     title: 'Batch File Renaming & Organization',
     summary:
@@ -156,9 +310,26 @@ const FEATURE_CATALOG: FeatureDetail[] = [
     platforms: 'macOS, Windows, Linux.',
     docLink: '/docs/file-organization',
   },
+
+  // 7. Streaming & Network Shares
+  {
+    id: 'network-shares',
+    category: 'Streaming & Network Shares',
+    icon: HardDrive,
+    title: 'Local Network Storage (NAS, SMB, SFTP, WebDAV)',
+    summary:
+      'Browse, index, and stream media directly from your home network storage drives over SMB, SFTP, FTP, WebDAV, and NFS.',
+    benefit:
+      'Access terabytes of media from your home server or Synology/QNAP NAS without taking up local phone or laptop storage space.',
+    howItWorks:
+      'Direct socket connection with protocol authentication handled locally. Streaming buffers are optimized for zero stutter over home Wi-Fi.',
+    accessPoint: 'Main Navigation -> Network Storage -> Add Server.',
+    platforms: 'All supported platforms.',
+    docLink: '/docs/streaming-urls',
+  },
   {
     id: 'network-streams',
-    category: 'Streaming & URL Playback',
+    category: 'Streaming & Network Shares',
     icon: Radio,
     title: 'Direct User-Provided Stream Playback',
     summary:
@@ -166,25 +337,10 @@ const FEATURE_CATALOG: FeatureDetail[] = [
     benefit:
       'Stream live radio, podcasts, or network security feeds directly in Vimivo without proprietary third-party apps.',
     howItWorks:
-      'Streams connect directly to the destination host over native sockets without intermediate telemetry or proxy servers. Recent URLs are stored locally with custom bookmarking.',
+      'Streams connect directly to destination hosts over native sockets without intermediate telemetry or proxy servers. Recent URLs are stored locally with custom bookmarking.',
     accessPoint: 'Main Navigation -> Stream URL -> Paste link.',
     platforms: 'All supported platforms.',
     docLink: '/docs/streaming-urls',
-  },
-  {
-    id: 'offline-privacy',
-    category: 'Security & Trust',
-    icon: ShieldCheck,
-    title: 'Zero-Account Offline Architecture',
-    summary:
-      '100% local SQLite v6 persistence with WAL mode. Zero accounts, zero analytics, zero data uploads.',
-    benefit:
-      'Total privacy and data sovereignty. Your listening habits, personal files, and metadata never leave your hardware.',
-    howItWorks:
-      'All states, playlists, bookmarks, and indexes reside in private local application sandboxes. No network telemetry calls exist in the binary.',
-    accessPoint: 'Default architecture — active across entire application.',
-    platforms: 'All supported platforms.',
-    docLink: '/docs/privacy-policy',
   },
 ];
 
@@ -197,7 +353,8 @@ export default function FeaturesPage() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
-            <span>Verified Specifications</span>
+            <Zap className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Pure Rust Core &amp; Verified Specifications</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
             Vimivo Feature Catalog
@@ -276,7 +433,7 @@ export default function FeaturesPage() {
                             <span>Read Technical Guide</span>
                             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                           </Link>
-                          <span className="text-[10px] text-slate-500 uppercase tracking-wider">
+                          <span className="text-[10px] text-slate-500 uppercase tracking-wider font-mono">
                             Verified Implementation
                           </span>
                         </div>
