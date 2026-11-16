@@ -26,6 +26,7 @@ import { ScreenshotShowcase } from '@/components/ScreenshotShowcase';
 import { InteractivePlayerDemo } from '@/components/InteractivePlayerDemo';
 import { ComparisonMatrix } from '@/components/ComparisonMatrix';
 import { InteractiveEqualizerDemo } from '@/components/InteractiveEqualizerDemo';
+import { CopyButton } from '@/components/CopyButton';
 
 export default function HomePage() {
   return (
@@ -94,6 +95,16 @@ export default function HomePage() {
                 <span>Documentation</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
+            </div>
+
+            {/* Quick Terminal One-Liner on Hero */}
+            <div className="pt-2 max-w-lg mx-auto">
+              <div className="p-2.5 px-3.5 rounded-xl bg-slate-950/80 border border-slate-800 font-mono text-xs text-cyan-300 flex items-center justify-between gap-3 shadow-inner">
+                <span className="truncate select-all text-slate-300">
+                  <span className="text-cyan-500 font-bold">$</span> curl -fsSL https://vimivo.tashanto.com/install.sh | bash
+                </span>
+                <CopyButton text="curl -fsSL https://vimivo.tashanto.com/install.sh | bash" label="Copy" />
+              </div>
             </div>
 
             {/* 5 First-Class Supported Platforms */}
@@ -492,10 +503,11 @@ export default function HomePage() {
               href="https://tashanto.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:underline font-medium"
+              className="text-cyan-400 hover:underline font-semibold"
             >
               TA Shanto
             </a>
+            {' '}(<a href="https://tashanto.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300">tashanto.com</a>)
             . 100% Free &amp; Open Source under the MIT License.
           </p>
         </div>

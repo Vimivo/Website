@@ -1,23 +1,26 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import {
   Download,
-  ShieldCheck,
   CheckCircle2,
   Terminal,
   ExternalLink,
   Monitor,
   Smartphone,
-  BookOpen,
   Zap,
+  HelpCircle,
+  Code,
+  UserCheck,
 } from 'lucide-react';
 import { CopyButton } from '@/components/CopyButton';
 
 export const metadata: Metadata = {
-  title: 'Download Official Releases',
+  title: 'Download Official Releases | Direct & Terminal Install by TA Shanto',
   description:
-    'Download official verified releases of Vimivo for macOS, Android, Windows, Linux, and iOS. Includes cryptographic SHA-256 verification hashes and installation guides.',
+    'Direct download official verified releases of Vimivo for macOS, Android, Windows, Linux, and iOS. Includes one-line terminal install commands, package manager shortcuts, and SHA-256 verification hashes by TA Shanto.',
+  alternates: {
+    canonical: 'https://vimivo.tashanto.com/download',
+  },
 };
 
 interface ReleaseArtifact {
@@ -28,7 +31,8 @@ interface ReleaseArtifact {
   size: string;
   sha256: string;
   status: string;
-  downloadUrl: string;
+  directDownloadUrl: string;
+  terminalCommand: string;
   instructions: string[];
 }
 
@@ -41,11 +45,12 @@ const ARTIFACTS: ReleaseArtifact[] = [
     size: '151.4 MB',
     sha256: '42e7784c1850fd2d20c94366d4d19c8c25a24b1895ac566af3ddc225b9153cc8',
     status: 'Verified on macOS 14 & 15',
-    downloadUrl: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-1.0.0.dmg',
+    directDownloadUrl: '/api/download/macos',
+    terminalCommand: 'curl -fSL https://vimivo.tashanto.com/api/download/macos -o Vimivo.dmg && open Vimivo.dmg',
     instructions: [
-      'Download Vimivo-1.0.0.dmg to your Downloads folder.',
-      'Double-click the .dmg to mount the disk image.',
-      'Drag the Vimivo icon into your Applications folder.',
+      'Click the button above to begin direct download.',
+      'Double-click Vimivo.dmg to mount the disk image.',
+      'Drag the Vimivo icon into Applications.',
       'For pre-release builds: right-click Vimivo.app and select "Open" to confirm Gatekeeper.',
     ],
   },
@@ -53,32 +58,17 @@ const ARTIFACTS: ReleaseArtifact[] = [
     id: 'android-apk',
     platform: 'Android Direct Sideload',
     format: 'Release APK',
-    filename: 'androidApp-release-unsigned.apk',
+    filename: 'Vimivo-1.0.0.apk',
     size: '147.5 MB',
     sha256: '7425f12d6a8bd450bfe88420c4ad2137f0820e0bcc0e35b1046efdcee65c92b3',
     status: 'Verified (ARM64 & x86_64)',
-    downloadUrl:
-      'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/androidApp-release-unsigned.apk',
+    directDownloadUrl: '/api/download/android',
+    terminalCommand: 'curl -fSL https://vimivo.tashanto.com/api/download/android -o Vimivo.apk && adb install Vimivo.apk',
     instructions: [
-      'Download the APK directly onto your Android device.',
+      'Click Download APK to directly save to your device.',
       'Allow "Install Unknown Apps" for your browser in Settings -> Security.',
       'Tap the notification to install the package.',
       'Grant local audio/video media permissions upon first launch.',
-    ],
-  },
-  {
-    id: 'android-aab',
-    platform: 'Android Play Bundle',
-    format: 'Google Play AAB',
-    filename: 'androidApp-release.aab',
-    size: '76.1 MB',
-    sha256: '8d7f0060a9ec770bb5162d0f5d61ed90f5cd7226a67ef64216030c8710af7133',
-    status: 'Play Store Distribution Ready',
-    downloadUrl:
-      'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/androidApp-release.aab',
-    instructions: [
-      'App Bundle format optimized for Google Play distribution with Play App Signing.',
-      'Generates dynamic per-device APK splits for a compact installed size.',
     ],
   },
   {
@@ -89,9 +79,10 @@ const ARTIFACTS: ReleaseArtifact[] = [
     size: '142.8 MB',
     sha256: 'b39e6a9a951c68612fe2908779698d5c412f9e422bc88b776a3809e6c43424e1',
     status: 'Verified on Windows 10 & 11',
-    downloadUrl: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-Setup-1.0.0.exe',
+    directDownloadUrl: '/api/download/windows',
+    terminalCommand: "iwr -useb https://vimivo.tashanto.com/api/download/windows -OutFile Vimivo-Setup.exe; .\\Vimivo-Setup.exe",
     instructions: [
-      'Download Vimivo-Setup-1.0.0.exe to your PC.',
+      'Download Vimivo-Setup-1.0.0.exe directly to your PC.',
       'Double-click the installer and choose your installation directory.',
       'Launch Vimivo from your Start Menu or Desktop shortcut.',
     ],
@@ -104,11 +95,27 @@ const ARTIFACTS: ReleaseArtifact[] = [
     size: '138.2 MB',
     sha256: 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce',
     status: 'Verified on Ubuntu 22.04 & 24.04',
-    downloadUrl: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/vimivo_1.0.0_amd64.deb',
+    directDownloadUrl: '/api/download/linux',
+    terminalCommand: 'curl -fSL https://vimivo.tashanto.com/api/download/linux -o vimivo.deb && sudo dpkg -i vimivo.deb',
     instructions: [
-      'Download vimivo_1.0.0_amd64.deb to your Linux machine.',
+      'Directly download vimivo_1.0.0_amd64.deb to your Linux machine.',
       'Run `sudo dpkg -i vimivo_1.0.0_amd64.deb` in terminal.',
-      'Launch with `vimivo` command or via your desktop application launcher.',
+      'Launch with `vimivo` command or via your application launcher.',
+    ],
+  },
+  {
+    id: 'android-aab',
+    platform: 'Android Play Bundle',
+    format: 'Google Play AAB',
+    filename: 'Vimivo-1.0.0.aab',
+    size: '76.1 MB',
+    sha256: '8d7f0060a9ec770bb5162d0f5d61ed90f5cd7226a67ef64216030c8710af7133',
+    status: 'Play Store Ready',
+    directDownloadUrl: '/api/download/android-aab',
+    terminalCommand: 'curl -fSL https://vimivo.tashanto.com/api/download/android-aab -o Vimivo.aab',
+    instructions: [
+      'App Bundle format optimized for Google Play distribution with Play App Signing.',
+      'Generates dynamic per-device APK splits for a compact installed size.',
     ],
   },
   {
@@ -119,7 +126,8 @@ const ARTIFACTS: ReleaseArtifact[] = [
     size: '34.6 MB',
     sha256: '9a43a2901c0f05809df632ae5b8095d321516e88514e877025ec1d31fa84992f',
     status: 'Built & Verified in Xcode 16',
-    downloadUrl: 'https://github.com/Vimivo/Player/releases/download/v1.0.0-rc.1/Vimivo-iOS-TestFlight.mobileprovision',
+    directDownloadUrl: '/api/download/ios',
+    terminalCommand: 'curl -fSL https://vimivo.tashanto.com/api/download/ios -o Vimivo-iOS.provision',
     instructions: [
       'Native SwiftUI application backed by the pre-compiled UniFFI framework.',
       'Available via Apple TestFlight pre-release testing group.',
@@ -134,58 +142,105 @@ export default function DownloadPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
             <Zap className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Release Channel: v1.0.0-rc.1 • Pure Rust Core</span>
+            <span>Direct Downloads &amp; Terminal Installers</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white">
             Download Official Vimivo Releases
           </h1>
           <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-            All releases are 100% free, zero ads, zero accounts, open source under the MIT license, and built directly from the verified Git repository.
+            All releases are 100% free, ad-free, account-free, and open source under the MIT License. Designed, engineered, and maintained with pride by{' '}
+            <a
+              href="https://tashanto.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:underline font-semibold"
+            >
+              TA Shanto
+            </a>
+            .
           </p>
         </div>
 
-        {/* Quick Package Managers & Terminal Commands */}
-        <div className="mb-14 p-6 sm:p-8 rounded-3xl glass-panel border border-slate-800 space-y-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-cyan-400" />
-            <span>Install via Package Managers:</span>
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1.5 font-mono text-xs">
-              <div className="flex items-center justify-between text-slate-400">
-                <span>macOS Homebrew:</span>
-                <CopyButton text="brew install --cask vimivo" />
-              </div>
-              <div className="text-cyan-300 select-all">brew install --cask vimivo</div>
+        {/* UNIVERSAL ONE-LINER TERMINAL INSTALLER SPOTLIGHT */}
+        <div className="mb-14 p-6 sm:p-10 rounded-3xl glass-panel border border-cyan-500/30 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 blur-[100px] pointer-events-none -z-10" />
+
+          <div className="max-w-3xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-semibold">
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Universal Terminal Quick-Install</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              One-Command Terminal Installation
+            </h2>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Auto-detects your operating system (macOS or Linux), downloads the authentic verified binary, checks SHA-256 integrity, and initiates installation automatically:
+            </p>
+
+            {/* Universal Command Box */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-black/90 border border-slate-700/80 font-mono text-sm text-cyan-300 flex items-center justify-between gap-4 shadow-xl">
+              <span className="select-all overflow-x-auto whitespace-nowrap">
+                curl -fsSL https://vimivo.tashanto.com/install.sh | bash
+              </span>
+              <CopyButton text="curl -fsSL https://vimivo.tashanto.com/install.sh | bash" label="Copy Command" />
             </div>
 
-            <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1.5 font-mono text-xs">
+            {/* Windows PowerShell Command */}
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <Monitor className="w-3.5 h-3.5 text-blue-400" />
+                <span>Windows PowerShell:</span>
+                <code className="text-cyan-300 font-mono bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                  irm https://vimivo.tashanto.com/install.ps1 | iex
+                </code>
+              </span>
+              <CopyButton text="irm https://vimivo.tashanto.com/install.ps1 | iex" label="Copy" />
+            </div>
+          </div>
+        </div>
+
+        {/* PACKAGE MANAGERS GRID */}
+        <div className="mb-14 p-6 sm:p-8 rounded-3xl glass-card border border-slate-800 space-y-4">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <Code className="w-4 h-4 text-cyan-400" />
+            <span>Install via Official Package Managers:</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2 font-mono text-xs">
+              <div className="flex items-center justify-between text-slate-400">
+                <span>macOS Homebrew Cask:</span>
+                <CopyButton text="brew install --cask vimivo" />
+              </div>
+              <div className="text-cyan-300 select-all font-semibold">brew install --cask vimivo</div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2 font-mono text-xs">
               <div className="flex items-center justify-between text-slate-400">
                 <span>Windows WinGet:</span>
                 <CopyButton text="winget install Vimivo.Player" />
               </div>
-              <div className="text-cyan-300 select-all">winget install Vimivo.Player</div>
+              <div className="text-cyan-300 select-all font-semibold">winget install Vimivo.Player</div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1.5 font-mono text-xs">
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2 font-mono text-xs">
               <div className="flex items-center justify-between text-slate-400">
                 <span>Rust Cargo (Source):</span>
                 <CopyButton text="cargo install vimivo-desktop" />
               </div>
-              <div className="text-cyan-300 select-all">cargo install vimivo-desktop</div>
+              <div className="text-cyan-300 select-all font-semibold">cargo install vimivo-desktop</div>
             </div>
           </div>
         </div>
 
-        {/* Artifacts Grid */}
+        {/* DIRECT DOWNLOAD ARTIFACTS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {ARTIFACTS.map((art) => (
             <div
               key={art.id}
               id={art.id}
-              className="glass-card rounded-2xl md:rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col justify-between space-y-6"
+              className="glass-card rounded-2xl md:rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col justify-between space-y-6 hover:border-cyan-500/40 transition-all shadow-xl"
             >
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
@@ -195,14 +250,14 @@ export default function DownloadPage() {
                     ) : (
                       <Smartphone className="w-5 h-5 text-emerald-400" />
                     )}
-                    <h2 className="text-lg font-bold text-white">{art.platform}</h2>
+                    <h3 className="text-lg font-bold text-white">{art.platform}</h3>
                   </div>
                   <span className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800/40">
                     {art.size}
                   </span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-850 space-y-1">
+                <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-850 space-y-1">
                   <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
                     Verified Package File:
                   </span>
@@ -213,21 +268,34 @@ export default function DownloadPage() {
                   </div>
                 </div>
 
-                {/* Download Button */}
+                {/* Direct Download Button (triggers browser direct file save) */}
                 <div>
                   <a
-                    href={art.downloadUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/20 transition-all"
+                    href={art.directDownloadUrl}
+                    download={art.filename}
+                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm font-bold bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:via-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Download {art.format}</span>
+                    <span>Direct Download {art.format}</span>
                   </a>
                 </div>
 
+                {/* Direct Terminal Command for this Artifact */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                    <span className="font-semibold uppercase tracking-wider flex items-center gap-1">
+                      <Terminal className="w-3 h-3 text-cyan-400" />
+                      <span>Download via Terminal:</span>
+                    </span>
+                    <CopyButton text={art.terminalCommand} label="Copy" />
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-slate-950 font-mono text-[10px] text-cyan-300 break-all select-all border border-slate-850">
+                    {art.terminalCommand}
+                  </div>
+                </div>
+
                 {/* Instructions */}
-                <div className="space-y-2 pt-2">
+                <div className="space-y-2 pt-1">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                     Installation Steps:
                   </h4>
@@ -253,70 +321,102 @@ export default function DownloadPage() {
           ))}
         </div>
 
-        {/* Release Repository & Source Build Info */}
+        {/* DEVELOPER CREDIT & REPRODUCIBILITY GUARANTEE */}
         <div className="mt-16 glass-panel rounded-3xl p-8 sm:p-10 border border-slate-800">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div className="md:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-400">
-                <Terminal className="w-4 h-4" />
-                <span>Build From Verified Source Code</span>
+                <UserCheck className="w-4 h-4 text-emerald-400" />
+                <span>Developer Guarantee &amp; Authenticity</span>
               </div>
-              <h3 className="text-2xl font-bold text-white">
-                Compiling Vimivo Directly
-              </h3>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+                Designed &amp; Developed by TA Shanto
+              </h2>
               <p className="text-sm text-slate-300 leading-relaxed">
-                Vimivo is 100% reproducible. You can clone the repository and launch the player using Cargo for the pure Rust desktop client or Gradle for multiplatform builds:
+                Every release artifact published on this website is compiled and cryptographically verified directly by TA Shanto. There are no corporate backers, venture capital trackers, ad SDKs, or cloud telemetry.
               </p>
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-cyan-300 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span># Run native desktop player via Cargo</span>
-                  <CopyButton text="cargo run -p vimivo-desktop" />
-                </div>
-                <div>cargo run -p vimivo-desktop</div>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <a
+                  href="https://tashanto.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-md shadow-cyan-500/20 transition-all"
+                >
+                  <span>Visit Developer Portfolio: tashanto.com</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://github.com/Vimivo/Player"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors"
+                >
+                  <span>Open GitHub Source</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                </a>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
-                Official Release Repository:
-              </h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                All signed binaries, release assets, and release candidate manifests are published on the official GitHub Releases page.
+            <div className="md:col-span-4 p-6 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Binary Verification:
+              </span>
+              <p className="text-xs text-slate-300 font-mono">
+                shasum -a 256 &lt;filename&gt;
               </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <a
-                  href="https://github.com/Vimivo/Player/releases"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-colors"
-                >
-                  <span>Open GitHub Releases</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-                <Link
-                  href="/docs/installation"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>Full Installation Manual</span>
-                </Link>
-              </div>
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                Compare the generated SHA-256 hash with the digest table above to mathematically prove that your binary has not been tampered with.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Cryptographic Verification Guide */}
-        <div className="mt-12 p-6 rounded-2xl bg-slate-950/70 border border-slate-850 max-w-4xl mx-auto space-y-3">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-200">
-            <ShieldCheck className="w-4 h-4 text-cyan-400" />
-            <span>How to verify your download in Terminal:</span>
+        {/* FREQUENTLY ASKED QUESTIONS (SEO Rich Snippets) */}
+        <div className="mt-16 space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-2">
+              <h3 className="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Is Vimivo really 100% free with no ads?</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Yes, completely. Unlike MX Player, which displays intrusive video and banner ads, Vimivo contains zero advertising networks, zero user accounts, and zero cloud tracking SDKs. It is licensed under the MIT Open Source License.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-2">
+              <h3 className="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Can I download and install Vimivo using Terminal?</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Yes! Run <code className="text-cyan-300 font-mono text-xs">curl -fsSL https://vimivo.tashanto.com/install.sh | bash</code> on macOS and Linux, or use Homebrew (<code className="text-cyan-300 font-mono text-xs">brew install --cask vimivo</code>) or WinGet (<code className="text-cyan-300 font-mono text-xs">winget install Vimivo.Player</code>).
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-2">
+              <h3 className="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Who is the developer of Vimivo?</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Vimivo is created, engineered, and maintained by <strong>TA Shanto</strong>. You can view his projects and get in touch at <a href="https://tashanto.com" target="_blank" rel="noopener noreferrer" className="text-cyan-400 underline">tashanto.com</a>.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-2">
+              <h3 className="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span>Does Vimivo support 4K HDR and hardware acceleration?</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Yes. Vimivo features native GPU acceleration powered by libmpv (Metal on macOS, Direct3D 11 / NVDEC on Windows, VA-API on Linux) and Media3 on Android with 1-tap HW/HW+/SW decoder switching.
+              </p>
+            </div>
           </div>
-          <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto">
-            shasum -a 256 Vimivo-1.0.0.dmg
-          </div>
-          <p className="text-[11px] text-slate-500">
-            Compare the resulting checksum with the SHA-256 digest published above to guarantee the binary is untampered and authentic.
-          </p>
         </div>
       </div>
     </div>

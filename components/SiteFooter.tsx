@@ -168,9 +168,9 @@ export function SiteFooter() {
               href="https://tashanto.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-cyan-400 hover:text-cyan-300 underline decoration-cyan-500/40 hover:decoration-cyan-300 transition-colors"
+              className="font-semibold text-cyan-300 hover:text-white underline decoration-cyan-500/40 hover:decoration-cyan-300 transition-colors"
             >
-              TA Shanto
+              TA Shanto (tashanto.com)
             </a>
           </div>
 

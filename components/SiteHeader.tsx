@@ -77,6 +77,19 @@ export function SiteHeader() {
             </div>
           </Link>
 
+          {/* Developer Credit Pill */}
+          <a
+            href="https://tashanto.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/70 border border-slate-800 text-xs font-medium text-slate-400 hover:text-cyan-300 hover:border-slate-700 transition-all shadow-sm"
+            title="Designed & Developed by TA Shanto (tashanto.com)"
+          >
+            <span>by</span>
+            <span className="text-white font-semibold">TA Shanto</span>
+            <span className="text-cyan-400">• tashanto.com</span>
+          </a>
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800 backdrop-blur-md">
             {navLinks.map((link) => {
