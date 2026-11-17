@@ -1,6 +1,6 @@
 ---
 slug: "release-notes"
-title: "Release Notes (v1.0.0-rc.1)"
+title: "Release Notes (v1.0.1 Stable)"
 category: "Releases"
 order: 15
 description: "Release highlights, verification hashes, package artifacts, and platform updates."

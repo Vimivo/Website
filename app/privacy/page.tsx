@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             We believe your media consumption habits belong exclusively to you.
           </p>
           <div className="text-xs text-slate-500">
-            Effective Date: October 16, 2026 &bull; Version 1.0.0
+            Effective Date: November 16, 2026 &bull; Version 1.0.1
           </div>
         </div>
 
@@ -179,7 +179,7 @@ export default function PrivacyPage() {
           <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 flex items-start gap-3">
             <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             <p>
-              This document reflects the verified data architecture of Vimivo v1.0.0. It is written to provide plain-language technical clarity and is not a substitute for formal jurisdiction-specific legal counsel.
+              This document reflects the verified data architecture of Vimivo v1.0.1. It is written to provide plain-language technical clarity and is not a substitute for formal jurisdiction-specific legal counsel.
             </p>
           </div>
         </div>

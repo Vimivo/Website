@@ -53,7 +53,7 @@ export default function AboutPage() {
                 Designed and Developed by TA Shanto
               </h2>
               <p className="text-slate-300 text-sm leading-relaxed">
-                Vimivo is designed and engineered by TA Shanto as a universal media playback platform built on Kotlin Multiplatform, Compose Multiplatform, and platform-native multimedia decoders.
+                Vimivo is designed and engineered by TA Shanto as a universal media playback platform powered by a memory-safe Pure Rust core, native Swift/Metal interfaces on Apple platforms, native Kotlin Compose on Android, and high-performance Pure Rust desktop applications on Windows and Linux.
               </p>
               <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-4">
                 <a
@@ -143,20 +143,20 @@ export default function AboutPage() {
           <h2 className="text-lg font-bold text-white">Engineered with Modern Technologies</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono text-slate-300">
             <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-              <div className="text-cyan-400 font-bold mb-1">Language</div>
-              <div>Kotlin 2.3.20</div>
+              <div className="text-cyan-400 font-bold mb-1">Core Engine</div>
+              <div>Pure Rust 2024</div>
             </div>
             <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-              <div className="text-indigo-400 font-bold mb-1">UI Framework</div>
-              <div>Compose Multiplatform</div>
+              <div className="text-indigo-400 font-bold mb-1">Apple UI</div>
+              <div>SwiftUI &amp; Metal</div>
             </div>
             <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
-              <div className="text-teal-400 font-bold mb-1">Desktop Engine</div>
-              <div>libmpv 2.0.0</div>
+              <div className="text-teal-400 font-bold mb-1">Desktop UI</div>
+              <div>Pure Rust (Slint)</div>
             </div>
             <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
               <div className="text-purple-400 font-bold mb-1">Android Engine</div>
-              <div>Media3 ExoPlayer</div>
+              <div>Kotlin &amp; Media3</div>
             </div>
           </div>
         </div>

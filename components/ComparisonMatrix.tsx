@@ -90,7 +90,7 @@ const COMPARISON_DATA: ComparisonRow[] = [
   {
     category: 'Architecture',
     feature: 'Core Performance Architecture',
-    vimivo: { text: 'Pure Rust Core + UniFFI + Kotlin/SwiftUI', status: 'yes' },
+    vimivo: { text: 'Pure Rust Core + Swift (macOS/iOS) + Kotlin (Android) + Rust UI (Win/Linux)', status: 'yes' },
     vlc: { text: 'C / C++ Core with Platform Adapters', status: 'yes' },
     mxPlayer: { text: 'Proprietary Closed-Source Java & C++ JNI', status: 'no' },
   },

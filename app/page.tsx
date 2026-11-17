@@ -52,11 +52,11 @@ export default function HomePage() {
           <div className="text-center max-w-4xl mx-auto space-y-6">
             {/* Release & Architecture pill */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-300 text-xs font-medium shadow-inner backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span className="font-semibold">Vimivo v1.0.0-rc.1 Released</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-semibold text-emerald-300">Vimivo v1.0.1 Stable Released</span>
               <span className="text-slate-500">&bull;</span>
               <span className="text-slate-300 flex items-center gap-1">
-                <Zap className="w-3 h-3 text-emerald-400" /> Pure Rust Core + UniFFI Engine
+                <Zap className="w-3 h-3 text-cyan-400" /> Pure Rust Core + Native UI (Swift / Kotlin / Slint)
               </span>
             </div>
 
@@ -70,7 +70,7 @@ export default function HomePage() {
 
             {/* Supporting Copy */}
             <p className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-              The world&apos;s most capable, ad-free, login-free universal media player. Built with pure Rust, native hardware acceleration, and the muscle-memory controls you love from MX Player and VLC.
+              The world&apos;s most capable, ad-free, login-free universal media player. Powered by a 100% Pure Rust multimedia core, native platform UI (Swift, Kotlin, Slint), and genuine hardware acceleration. Zero bloat, zero Java runtime on desktop.
             </p>
 
             {/* Primary CTAs */}
@@ -80,7 +80,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl text-sm font-bold bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:via-indigo-500 hover:to-purple-500 text-white shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200 transform hover:-translate-y-0.5"
               >
                 <Download className="w-4 h-4" />
-                <span>Download v1.0.0-rc.1</span>
+                <span>Download v1.0.1 Stable</span>
               </Link>
               <Link
                 href="#interactive-demo"
@@ -112,19 +112,19 @@ export default function HomePage() {
             <div className="pt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
               <span className="text-slate-500 font-medium">5 Verified Platforms:</span>
               <span className="px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 flex items-center gap-1.5 shadow-sm">
-                <Monitor className="w-3.5 h-3.5 text-cyan-400" /> macOS (Apple Silicon &amp; Intel DMG)
+                <Monitor className="w-3.5 h-3.5 text-cyan-400" /> macOS (Pure Swift &amp; Metal ~35 MB)
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 flex items-center gap-1.5 shadow-sm">
-                <Smartphone className="w-3.5 h-3.5 text-emerald-400" /> Android (APK &amp; AAB)
+                <Smartphone className="w-3.5 h-3.5 text-emerald-400" /> Android (Kotlin &amp; Media3)
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 flex items-center gap-1.5 shadow-sm">
-                <Monitor className="w-3.5 h-3.5 text-blue-400" /> Windows (EXE &amp; MSI)
+                <Monitor className="w-3.5 h-3.5 text-blue-400" /> Windows (Pure Rust UI ~17 MB)
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 flex items-center gap-1.5 shadow-sm">
-                <Terminal className="w-3.5 h-3.5 text-amber-400" /> Linux (DEB &amp; RPM)
+                <Terminal className="w-3.5 h-3.5 text-amber-400" /> Linux (Pure Rust AppImage ~17 MB)
               </span>
               <span className="px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 flex items-center gap-1.5 shadow-sm">
-                <Smartphone className="w-3.5 h-3.5 text-indigo-400" /> iOS 16+ &amp; iPadOS
+                <Smartphone className="w-3.5 h-3.5 text-indigo-400" /> iOS 16+ (SwiftUI &amp; Metal)
               </span>
             </div>
           </div>
@@ -484,7 +484,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/25 transition-all"
             >
               <Download className="w-4 h-4" />
-              <span>Download Vimivo v1.0.0-rc.1</span>
+              <span>Download Vimivo v1.0.1 Stable</span>
             </Link>
 
             <a

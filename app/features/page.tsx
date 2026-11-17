@@ -66,9 +66,9 @@ const FEATURE_CATALOG: FeatureDetail[] = [
     id: 'graphic-equalizer',
     category: 'Audio Playback',
     icon: Sliders,
-    title: '10-Band Graphic Equalizer with Auto-Preamp',
+    title: '16-Band & 10-Band Pro Equalizer with Auto-Preamp',
     summary:
-      'Fine-grained acoustic control across 10 discrete frequency bands (32Hz to 16kHz) with built-in presets and automatic preamp compensation.',
+      'Fine-grained acoustic control across 16 and 10 discrete frequency bands (32Hz to 16kHz) with built-in presets and automatic preamp compensation.',
     benefit:
       'Customize sound curves for headphones, studio monitors, or car audio without digital distortion or harsh audio clipping.',
     howItWorks:

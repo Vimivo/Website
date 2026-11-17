@@ -30,8 +30,8 @@ export function SiteFooter() {
               </div>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              A privacy-first, offline universal audio and video player built with Kotlin Multiplatform
-              and Compose Multiplatform for Android, macOS, Windows, Linux, and iOS.
+              A privacy-first, offline universal audio and video player powered by a 100% Pure Rust core
+              and native platform interfaces for macOS, iOS, Android, Windows, and Linux.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
@@ -79,7 +79,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/docs/release-notes" className="hover:text-cyan-300 transition-colors">
-                  Release Notes (v1.0.0-rc.1)
+                  Release Notes (v1.0.1 Stable)
                 </Link>
               </li>
               <li>
